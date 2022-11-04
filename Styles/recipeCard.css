@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 15px;
 }
 
 .recipeCard {
@@ -16,19 +17,39 @@
 }
 
 .infoWrapper {
-    height: 200px;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr; */
+    height: 290px;
     background-color: #E7E7E7;
     border-radius: 0 0 5px 5px;
     padding: 20px;
+}
+
+.cardHeader {
+    font-weight: 600;
+}
+
+.cardHeader p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .infoWrapper .cardHeader,
 .infoWrapper .ingredientsAndDescription {
     display: flex;
     justify-content: space-between;
+}
+
+.infoWrapper .ingredientsAndDescription {
+    padding: 15px 0;
+    gap: 10px;
+}
+
+.ingredients p {
+    margin: 5px 0;
+}
+
+.ingredient {
+    font-weight: 600;
 }
 
 .infoWrapper .ingredientsAndDescription>* {

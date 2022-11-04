@@ -7,6 +7,12 @@
     --primary-color: #D04F4F;
 }
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Lato', sans-serif;
 }
