@@ -1,11 +1,40 @@
 .recipesCards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .recipeCard {
     width: 350px;
-    display: grid;
+    height: 100%;
+}
+
+.imagePlaceHolder {
+    height: 200px;
+    background-color: #C7BEBE;
+    border-radius: 5px 5px 0 0;
+}
+
+.infoWrapper {
+    height: 200px;
+    /* display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr; */
+    background-color: #E7E7E7;
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+}
+
+.infoWrapper .cardHeader,
+.infoWrapper .ingredientsAndDescription {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoWrapper .ingredientsAndDescription>* {
+    width: 50%;
+}
+
+.infoWrapper h2 {
+    font-size: 1.2rem;
 }

@@ -7,11 +7,26 @@ class RecipeCard {
         const card = document.createElement("div")
         card.className = "recipeCard"
         
+        const imagePlaceHolder = document.createElement("div")
+        imagePlaceHolder.className = "imagePlaceHolder"
+
+        const infoWrapper = document.createElement("div")
+        infoWrapper.className = "infoWrapper"
+
+
+        const cardHeader = document.createElement("div")
+        cardHeader.className =  "cardHeader"
+
         const title = document.createElement("h2")
         title.textContent = this.data.name
 
         const cookingtime = document.createElement("p")
         cookingtime.textContent = this.data.time
+
+        cardHeader.append(title, cookingtime)
+
+        const ingredientsAndDescription = document.createElement("div")
+        ingredientsAndDescription.className = "ingredientsAndDescription"
 
         const ingredients = document.createElement("div")
         ingredients.className = "ingredients"
@@ -27,7 +42,11 @@ class RecipeCard {
         const description = document.createElement("p")
         description.textContent = `${this.data.description.slice(0,200)}...`
 
-        card.append(title, cookingtime, ingredients, description)
+        ingredientsAndDescription.append(ingredients, description)
+
+        infoWrapper.append(cardHeader, ingredientsAndDescription)
+
+        card.append(imagePlaceHolder, infoWrapper)
 
         return card
     }
