@@ -1,5 +1,8 @@
 import { RecipesFactory } from "./factories/RecipesFactory.js"
 
+let recipes;
+const main = document.querySelector("main")
+
 async function getRecipes() {
     
     return await fetch('../Data/recipes.json')
@@ -8,20 +11,34 @@ async function getRecipes() {
         .catch(err => console.log('an error occurs', err))
 }
 
-async function init() {
-    const main = document.querySelector("main")
+function displayCards(recipesList) {
     
+    if(document.querySelector(".recipesCard")!== null) {
+        document.querySelector(".recipesCard").remove()
+    }
     const recipesCards = document.createElement("div")
     recipesCards.className = "recipesCards"
 
-    recipes = await getRecipes();
-    recipes.forEach(element => {
-       const recipeCard =  new RecipesFactory(element)
-
-       recipesCards.appendChild(recipeCard)
-    });
-    
-    main.appendChild(recipesCards)
+    recipesList.forEach(element => {
+        const recipeCard =  new RecipesFactory(element)
+ 
+        recipesCards.appendChild(recipeCard)
+     });
+     
+     main.appendChild(recipesCards)
 }
-let recipes;
+
+async function init() {
+
+    recipes = await getRecipes();
+    displayCards(recipes)
+
+    const search = document.querySelector(".search")
+    search.addEventListener("keyup", (e) => {
+        if(e.target.value.length > 2) {
+            //On déclenche la recherche
+        }
+    })
+}  
+
 init();
