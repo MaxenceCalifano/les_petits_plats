@@ -1,4 +1,5 @@
 import { RecipesFactory } from "./factories/RecipesFactory.js"
+import { Dropdown } from "./Components/Dropdown.js"
 
 let recipes;
 const main = document.querySelector("main")
@@ -12,6 +13,16 @@ async function getRecipes() {
 }
 
 function displayCards(recipesList) {
+    let ustensils = []
+    
+     //Remove doubles
+    recipesList.forEach(element => element.ustensils.forEach(ustensil => {
+        if(!ustensils.includes(ustensil)) {
+            ustensils.push(ustensil)
+        }
+    }))
+
+    const dropdown = new Dropdown(ustensils, "Ustensiles").render()
     
     if(document.querySelector(".recipesCard")!== null) {
         document.querySelector(".recipesCard").remove()
@@ -25,7 +36,7 @@ function displayCards(recipesList) {
         recipesCards.appendChild(recipeCard)
      });
      
-     main.appendChild(recipesCards)
+     main.append(dropdown, recipesCards)
 }
 
 async function init() {

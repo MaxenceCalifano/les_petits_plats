@@ -1,0 +1,41 @@
+.dropdownWrapper button {
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.dropdownWrapper svg {
+    margin: 10px;
+    transition: transform 150ms ease-in;
+}
+
+.dropdownButton {
+    border-radius: 5px;
+    margin: 5px 5px 5px 0;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.dropdownOpen {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: absolute;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.dropdownOpen button {
+    margin: 0;
+    padding: 10px;
+}
+
+.dropdownWrapper.ustensils button {
+    background-color: #ED6454;
+}
+
+.dropdownWrapper.ustensils button:hover {
+    background-color: #93392f;
+}
