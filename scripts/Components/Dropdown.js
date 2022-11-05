@@ -1,8 +1,9 @@
 class Dropdown {
-    constructor(options, name) {
+    constructor(options, name, updateSelectedAppliance) {
         this.options = options
         this.name = name
         this.isOpen = false
+        this.updateSelectedAppliance = updateSelectedAppliance
         // doit retourner toutes les options choisies
         /*  Bouton avec une fléche
             au click sur la fleche on display une div qui contient toutes les options possibles
@@ -43,7 +44,10 @@ class Dropdown {
         this.options.forEach(value => {
             const option = document.createElement('button');
             option.textContent = value;
-
+            option.value = value
+            option.addEventListener('click', (e) => {
+                this.updateSelectedAppliance(option.value)
+            })
             dropdownOpen.appendChild(option)
         })
 

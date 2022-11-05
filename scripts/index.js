@@ -2,6 +2,7 @@ import { RecipesFactory } from "./factories/RecipesFactory.js"
 import { Dropdown } from "./Components/Dropdown.js"
 
 let recipes;
+let selectedAppliance = []
 const main = document.querySelector("main")
 
 async function getRecipes() {
@@ -15,6 +16,7 @@ async function getRecipes() {
 function displayCards(recipesList) {
     let ustensils = []
     let appliances = []
+    
     
 
     //DROPDOWNS
@@ -33,7 +35,13 @@ function displayCards(recipesList) {
     })
 
     console.log(appliances)
-    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles").render()
+
+    const updateSelectedApplicance = (value) => {
+        selectedAppliance.push(value)
+        console.log(selectedAppliance)
+    }
+
+    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelectedApplicance).render()
     const applianceDropdown = new Dropdown(appliances, "Appareils").render()
     
     const dropdowns = document.createElement("div");
