@@ -22,7 +22,8 @@ function displayCards(recipesList) {
         }
     }))
 
-    const dropdown = new Dropdown(ustensils, "Ustensiles").render()
+    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles").render()
+    const applianceDropdown = new Dropdown(ustensils, "Appareils").render()
     
     if(document.querySelector(".recipesCard")!== null) {
         document.querySelector(".recipesCard").remove()
@@ -36,7 +37,7 @@ function displayCards(recipesList) {
         recipesCards.appendChild(recipeCard)
      });
      
-     main.append(dropdown, recipesCards)
+     main.append(ustensilsDropdown, applianceDropdown, recipesCards)
 }
 
 async function init() {

@@ -12,7 +12,7 @@ class Dropdown {
     }
     render() {
 
-        const customClass = this.name === "Ustensiles" ? "ustensils" : "appliance"
+        const customClass = this.name === "Ustensiles" ? "ustensils" : "appliances"
 
         const dropdown = document.createElement('div');
         dropdown.classList.add('dropdownWrapper',customClass)
@@ -20,12 +20,12 @@ class Dropdown {
         const dropdownButton = document.createElement('button');
         dropdownButton.className = "dropdownButton";
         dropdownButton.textContent = this.name
-        dropdownButton.insertAdjacentHTML("beforeend", '<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/></svg>')
-        
+        const svg = document.createElement("img")
+        svg.setAttribute('src', 'Assets/chevron.svg');
+        //dropdownButton.insertAdjacentHTML("beforeend", '<svg  viewBox="0 0 16 11"><path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/></svg>')
+        dropdownButton.insertAdjacentElement("beforeend", svg)
 
         dropdownButton.addEventListener('click', () => {
-            const svg = document.querySelector(".dropdownButton svg")
-           
 
             if(this.isOpen) {
                 dropdownOpen.style.display = "none"
