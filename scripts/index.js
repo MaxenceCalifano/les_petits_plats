@@ -14,17 +14,33 @@ async function getRecipes() {
 
 function displayCards(recipesList) {
     let ustensils = []
+    let appliances = []
     
-     //Remove doubles
+
+    //DROPDOWNS
+    //Create list of ustensils without doubles
     recipesList.forEach(element => element.ustensils.forEach(ustensil => {
         if(!ustensils.includes(ustensil)) {
             ustensils.push(ustensil)
         }
     }))
-
-    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles").render()
-    const applianceDropdown = new Dropdown(ustensils, "Appareils").render()
     
+    //Create list of appliances without doubles
+    recipesList.forEach(element => {
+        if(!appliances.includes(element.appliance)) {
+            appliances.push(element.appliance)
+        }
+    })
+
+    console.log(appliances)
+    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles").render()
+    const applianceDropdown = new Dropdown(appliances, "Appareils").render()
+    
+    const dropdowns = document.createElement("div");
+    dropdowns.className = "dropdowns"
+    dropdowns.append(applianceDropdown, ustensilsDropdown)
+
+    //RECIPES
     if(document.querySelector(".recipesCard")!== null) {
         document.querySelector(".recipesCard").remove()
     }
@@ -37,7 +53,7 @@ function displayCards(recipesList) {
         recipesCards.appendChild(recipeCard)
      });
      
-     main.append(ustensilsDropdown, applianceDropdown, recipesCards)
+     main.append(dropdowns, recipesCards)
 }
 
 async function init() {

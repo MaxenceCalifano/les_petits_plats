@@ -22,7 +22,6 @@ class Dropdown {
         dropdownButton.textContent = this.name
         const svg = document.createElement("img")
         svg.setAttribute('src', 'Assets/chevron.svg');
-        //dropdownButton.insertAdjacentHTML("beforeend", '<svg  viewBox="0 0 16 11"><path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/></svg>')
         dropdownButton.insertAdjacentElement("beforeend", svg)
 
         dropdownButton.addEventListener('click', () => {
