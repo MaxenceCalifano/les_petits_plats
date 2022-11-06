@@ -47,6 +47,14 @@
     background-color: #ED6454;
 }
 
+.dropdownWrapper.ustensils button[selected=true] {
+    background-color: #782e26;
+}
+
+.dropdownWrapper.appliances button[selected=true] {
+    background-color: #295b44;
+}
+
 .dropdownWrapper.ustensils button:hover {
     background-color: #93392f;
 }
