@@ -3,6 +3,7 @@ import { Dropdown } from "./Components/Dropdown.js"
 
 let recipes;
 let selectedAppliance = []
+let selectedUstensils = []
 const main = document.querySelector("main")
 
 async function getRecipes() {
@@ -34,15 +35,17 @@ function displayCards(recipesList) {
         }
     })
 
-    console.log(appliances)
-
-    const updateSelectedApplicance = (value) => {
-        selectedAppliance.push(value)
+    const updateSelectedAppliance = (value) => {
+        //selectedAppliance.push(value)
         console.log(selectedAppliance)
     }
+    const updateSelectedUstensils = (value) => {
+        //selectedUstensils.push(value)
+        console.log(selectedUstensils)
+    }
 
-    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelectedApplicance).render()
-    const applianceDropdown = new Dropdown(appliances, "Appareils").render()
+    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelectedUstensils, selectedUstensils).render()
+    const applianceDropdown = new Dropdown(appliances, "Appareils", updateSelectedAppliance, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"
