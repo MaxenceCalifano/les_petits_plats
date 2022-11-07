@@ -12,6 +12,7 @@ class Dropdown {
             au click sur chacune des valeur on change le style
         */
     }
+    
     render() {
 
         const customClass = this.name === "Ustensiles" ? "ustensils" : "appliances"
@@ -38,6 +39,12 @@ class Dropdown {
                 this.isOpen = true
             }
         })
+        dropdownButton.addEventListener('blur', () => {
+                dropdownOpen.style.display = "none"
+                svg.style.transform = "rotate(0deg)"
+                this.isOpen = false
+            }
+        )
 
        const dropdownOpen = document.createElement("div")
        dropdownOpen.className = "dropdownOpen"
