@@ -37,14 +37,10 @@ class Dropdown {
                 dropdownOpen.style.display = "grid"
                 svg.style.transform = "rotate(180deg)"
                 this.isOpen = true
+                dropdownOpen.focus()
             }
         })
-        dropdownButton.addEventListener('blur', () => {
-                dropdownOpen.style.display = "none"
-                svg.style.transform = "rotate(0deg)"
-                this.isOpen = false
-            }
-        )
+       
 
        const dropdownOpen = document.createElement("div")
        dropdownOpen.className = "dropdownOpen"
@@ -70,9 +66,18 @@ class Dropdown {
             })
             dropdownOpen.appendChild(option)
         })
-
+        
 
         dropdown.append(dropdownButton,dropdownOpen);
+        document.body.addEventListener('click', (e) => {
+            if(!dropdown.contains(e.target)) {
+                dropdownOpen.style.display = "none"
+                svg.style.transform = "rotate(0deg)"
+                this.isOpen = false
+            }
+            
+        }
+    )
 
         return dropdown;
     }

@@ -3,10 +3,6 @@
     margin: 20px 0;
 }
 
-.dropdownWrapper {
-    z-index: 2;
-}
-
 .dropdownWrapper button {
     border: none;
     cursor: pointer;
