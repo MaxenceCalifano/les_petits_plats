@@ -55,12 +55,10 @@ class Dropdown {
                     this.selection.splice(this.selection.indexOf(option.value), 1)
                     this.updateSelection(option.value)
                     option.setAttribute("selected", false)
-                    console.log(this.selection)
                 } else {
                     this.selection.push(option.value)
                     this.updateSelection(option.value)
                     option.setAttribute("selected", true)
-                    console.log(this.selection)
                 }
                     
             })

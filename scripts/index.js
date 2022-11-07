@@ -4,6 +4,10 @@ import { Dropdown } from "./Components/Dropdown.js"
 let recipes;
 let selectedAppliance = []
 let selectedUstensils = []
+
+let ustensils = []
+let appliances = []
+
 const main = document.querySelector("main")
 
 async function getRecipes() {
@@ -15,21 +19,37 @@ async function getRecipes() {
 }
 
 function displayCards(recipesList) {
-    let ustensils = []
-    let appliances = []
-    
-    
+    //RECIPES
 
+    // Remove cards if they already exist to replace them
+    if(document.querySelector(".recipesCard")!== null) {
+        document.querySelector(".recipesCard").remove()
+    }
+    const recipesCards = document.createElement("div")
+    recipesCards.className = "recipesCards"
+
+    recipesList.forEach(element => {
+        const recipeCard =  new RecipesFactory(element)
+ 
+        recipesCards.appendChild(recipeCard)
+     });
+     
+     main.append(recipesCards)
+}
+
+async function init() {
+
+    recipes = await getRecipes();
     //DROPDOWNS
     //Create list of ustensils without doubles
-    recipesList.forEach(element => element.ustensils.forEach(ustensil => {
+    recipes.forEach(element => element.ustensils.forEach(ustensil => {
         if(!ustensils.includes(ustensil)) {
             ustensils.push(ustensil)
         }
     }))
     
     //Create list of appliances without doubles
-    recipesList.forEach(element => {
+    recipes.forEach(element => {
         if(!appliances.includes(element.appliance)) {
             appliances.push(element.appliance)
         }
@@ -50,26 +70,8 @@ function displayCards(recipesList) {
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"
     dropdowns.append(applianceDropdown, ustensilsDropdown)
+    main.appendChild(dropdowns)
 
-    //RECIPES
-    if(document.querySelector(".recipesCard")!== null) {
-        document.querySelector(".recipesCard").remove()
-    }
-    const recipesCards = document.createElement("div")
-    recipesCards.className = "recipesCards"
-
-    recipesList.forEach(element => {
-        const recipeCard =  new RecipesFactory(element)
- 
-        recipesCards.appendChild(recipeCard)
-     });
-     
-     main.append(dropdowns, recipesCards)
-}
-
-async function init() {
-
-    recipes = await getRecipes();
     displayCards(recipes)
 
     const search = document.querySelector(".search")
