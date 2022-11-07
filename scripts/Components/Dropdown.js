@@ -53,11 +53,11 @@ class Dropdown {
             option.addEventListener('click', () => {
                 if(this.selection.includes(option.value)) {
                     this.selection.splice(this.selection.indexOf(option.value), 1)
-                    this.updateSelection(option.value)
+                    this.updateSelection()
                     option.setAttribute("selected", false)
                 } else {
                     this.selection.push(option.value)
-                    this.updateSelection(option.value)
+                    this.updateSelection()
                     option.setAttribute("selected", true)
                 }
                     

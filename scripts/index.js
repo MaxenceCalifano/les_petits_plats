@@ -37,9 +37,16 @@ function displayCards(recipesList) {
      main.append(recipesCards)
 }
 
+function sortRecipes() {
+    const sortedRecipes = recipes;
+
+}
+
 async function init() {
 
     recipes = await getRecipes();
+
+
     //DROPDOWNS
     //Create list of ustensils without doubles
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
@@ -55,21 +62,23 @@ async function init() {
         }
     })
 
-    const updateSelectedAppliance = (value) => {
+    const updateSelection = (value) => {
         //selectedAppliance.push(value)
-        console.log(selectedAppliance)
-    }
-    const updateSelectedUstensils = (value) => {
-        //selectedUstensils.push(value)
-        console.log(selectedUstensils)
+        /**
+         * appel la fonction de tri
+         * et re appel displays cards avec les recette triées
+         */
+        console.log(selectedAppliance, selectedUstensils)
     }
 
-    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelectedUstensils, selectedUstensils).render()
-    const applianceDropdown = new Dropdown(appliances, "Appareils", updateSelectedAppliance, selectedAppliance).render()
+
+    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
+    const applianceDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"
     dropdowns.append(applianceDropdown, ustensilsDropdown)
+
     main.appendChild(dropdowns)
 
     displayCards(recipes)
