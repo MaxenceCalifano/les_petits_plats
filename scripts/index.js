@@ -20,10 +20,10 @@ async function getRecipes() {
 
 function displayCards(recipesList) {
     //RECIPES
-
     // Remove cards if they already exist to replace them
-    if(document.querySelector(".recipesCard")!== null) {
-        document.querySelector(".recipesCard").remove()
+    if(document.querySelector(".recipesCards") != null) {
+        console.log("remove", document.querySelector(".recipesCards"))
+        document.querySelector(".recipesCards").remove()
     }
     const recipesCards = document.createElement("div")
     recipesCards.className = "recipesCards"
@@ -38,9 +38,14 @@ function displayCards(recipesList) {
 }
 
 function sortRecipes() {
-    const sortedRecipes = recipes;
-
-}
+    const sortedRecipes = recipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
+    console.log(sortedRecipes)
+        /**
+         * pour chaque recette, on veut vérifier si elle contient dans ses ustensils, l'un des ustensils de la séléction
+         */
+        displayCards(sortedRecipes)
+      
+    }
 
 async function init() {
 
@@ -68,7 +73,8 @@ async function init() {
          * appel la fonction de tri
          * et re appel displays cards avec les recette triées
          */
-        console.log(selectedAppliance, selectedUstensils)
+        //console.log(selectedAppliance, selectedUstensils)
+        sortRecipes()
     }
 
 
