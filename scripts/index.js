@@ -5,6 +5,7 @@ let recipes;
 let selectedAppliance = []
 let selectedUstensils = []
 
+let allUstensils = []
 let ustensils = []
 let allAppliances = []
 let appliances = []
@@ -69,12 +70,24 @@ function sortRecipes(userInput) {
                 appliances.push(element.appliance)
             }
         })
+        /**
+         * Get ustensils from the selected recipes
+         */
+        ustensils = []
+        sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
+            if(!ustensils.includes(ustensil)) {
+                ustensils.push(ustensil)
+            }
+        }))
 
         // Update dropdowns
         const dropdowns = document.querySelector(".dropdowns")
         const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
+        const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
         dropdowns.firstChild.remove()
+        dropdowns.lastChild.remove()
         dropdowns.insertAdjacentElement('afterbegin', updatedAppliancesDropdown)
+        dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
  
         console.log(appliances, allAppliances)
     }
@@ -85,7 +98,7 @@ function sortRecipes(userInput) {
 
     
     if(selectedUstensils.length > 0) {
-        sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))//{ 
+        sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))
         }
     
     console.log(sortedRecipes)
@@ -120,8 +133,8 @@ async function init() {
     //Create list of ustensils without doubles
  
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
-        if(!ustensils.includes(ustensil)) {
-            ustensils.push(ustensil)
+        if(!allUstensils.includes(ustensil)) {
+            allUstensils.push(ustensil)
         }
     }))
     
@@ -132,7 +145,7 @@ async function init() {
         }
     })
 
-    const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
+    const ustensilsDropdown = new Dropdown(allUstensils, "Ustensiles", updateSelection, selectedUstensils).render()
     const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
