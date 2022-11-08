@@ -6,6 +6,7 @@ let selectedAppliance = []
 let selectedUstensils = []
 
 let ustensils = []
+let allAppliances = []
 let appliances = []
 
 const main = document.querySelector("main")
@@ -57,7 +58,19 @@ function sortRecipes(userInput) {
             if(recipe.description.includes(userInput)) {
                 return true
             }
-        } )
+        })
+
+        /**
+         * Get only appliances from the selected recipes
+         */
+        appliances = []
+        sortedRecipes.forEach(element => {
+            if(!appliances.includes(element.appliance)) {
+                appliances.push(element.appliance)
+            }
+        })
+
+        console.log(appliances, allAppliances)
     }
    
     if(selectedAppliance.length > 0) {
@@ -88,6 +101,7 @@ async function init() {
 
     //DROPDOWNS
     //Create list of ustensils without doubles
+ 
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
         if(!ustensils.includes(ustensil)) {
             ustensils.push(ustensil)
@@ -96,8 +110,8 @@ async function init() {
     
     //Create list of appliances without doubles
     recipes.forEach(element => {
-        if(!appliances.includes(element.appliance)) {
-            appliances.push(element.appliance)
+        if(!allAppliances.includes(element.appliance)) {
+            allAppliances.push(element.appliance)
         }
     })
 
@@ -113,7 +127,7 @@ async function init() {
 
 
     const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
-    const applianceDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
+    const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"
