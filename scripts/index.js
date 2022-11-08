@@ -61,7 +61,7 @@ function sortRecipes(userInput) {
         })
 
         /**
-         * Get only appliances from the selected recipes
+         * Get appliances from the selected recipes
          */
         appliances = []
         sortedRecipes.forEach(element => {
@@ -70,6 +70,12 @@ function sortRecipes(userInput) {
             }
         })
 
+        // Update dropdowns
+        const dropdowns = document.querySelector(".dropdowns")
+        const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
+        dropdowns.firstChild.remove()
+        dropdowns.insertAdjacentElement('afterbegin', updatedAppliancesDropdown)
+ 
         console.log(appliances, allAppliances)
     }
    
@@ -94,6 +100,17 @@ function sortRecipes(userInput) {
       
     }
 
+    
+    const updateSelection = (value) => {
+        //selectedAppliance.push(value)
+        /**
+         * appel la fonction de tri
+         * et re appel displays cards avec les recette triées
+         */
+        //console.log(selectedAppliance, selectedUstensils)
+        sortRecipes()
+    }
+
 async function init() {
 
     recipes = await getRecipes();
@@ -114,17 +131,6 @@ async function init() {
             allAppliances.push(element.appliance)
         }
     })
-
-    const updateSelection = (value) => {
-        //selectedAppliance.push(value)
-        /**
-         * appel la fonction de tri
-         * et re appel displays cards avec les recette triées
-         */
-        //console.log(selectedAppliance, selectedUstensils)
-        sortRecipes()
-    }
-
 
     const ustensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
     const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
