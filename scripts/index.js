@@ -37,11 +37,28 @@ function displayCards(recipesList) {
      main.append(recipesCards)
 }
 
-function sortRecipes() {
+function sortRecipes(userInput) {
     let sortedRecipes = recipes;
    /*  console.log('sortedREcipes: ',sortedRecipes)
     console.log('selected ustensils: ', selectedUstensils)
     console.log('selected appliances: ', selectedAppliance) */
+
+    if(userInput) {
+        /**
+         * chercher si la string de l'utilisateur est dans le titre, les ingrédients, et la description
+         */
+        sortedRecipes = sortedRecipes.filter(recipe => {
+            if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
+                return true
+            }
+            if(recipe.name.includes(userInput)) {
+                return true
+            }
+            if(recipe.description.includes(userInput)) {
+                return true
+            }
+        } )
+    }
    
     if(selectedAppliance.length > 0) {
         sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
@@ -107,9 +124,11 @@ async function init() {
     displayCards(recipes)
 
     const search = document.querySelector(".search")
+
     search.addEventListener("keyup", (e) => {
         if(e.target.value.length > 2) {
             //On déclenche la recherche
+            sortRecipes(e.target.value)
         }
     })
 }  
