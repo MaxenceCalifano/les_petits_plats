@@ -20,9 +20,9 @@ async function getRecipes() {
 
 function displayCards(recipesList) {
     //RECIPES
+
     // Remove cards if they already exist to replace them
     if(document.querySelector(".recipesCards") != null) {
-        console.log("remove", document.querySelector(".recipesCards"))
         document.querySelector(".recipesCards").remove()
     }
     const recipesCards = document.createElement("div")
@@ -38,10 +38,27 @@ function displayCards(recipesList) {
 }
 
 function sortRecipes() {
-    const sortedRecipes = recipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
+    let sortedRecipes = recipes;
+   /*  console.log('sortedREcipes: ',sortedRecipes)
+    console.log('selected ustensils: ', selectedUstensils)
+    console.log('selected appliances: ', selectedAppliance) */
+   
+    if(selectedAppliance.length > 0) {
+        sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
+    }
+
+    
+    if(selectedUstensils.length > 0) {
+        sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))//{ 
+        }
+    
     console.log(sortedRecipes)
+
+    //sortedRecipes.filter(checkUstensils)
+    
         /**
          * pour chaque recette, on veut vérifier si elle contient dans ses ustensils, l'un des ustensils de la séléction
+         * Ensuite on veut garder que celle qui a un des ustensils de la séléction
          */
         displayCards(sortedRecipes)
       
