@@ -66,3 +66,7 @@
 .dropdownWrapper.appliances .dropdownOpen {
     background-color: #68D9A4;
 }
+
+.dropdownWrapper.ustensils .dropdownOpen {
+    background-color: #ED6454;
+}
