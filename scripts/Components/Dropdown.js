@@ -34,7 +34,7 @@ class Dropdown {
                 svg.style.transform = "rotate(0deg)"
                 this.isOpen = false
             } else {
-                dropdownOpen.style.display = "grid"
+                dropdownOpen.style.display = "block"
                 svg.style.transform = "rotate(180deg)"
                 this.isOpen = true
                 dropdownOpen.focus()
@@ -44,6 +44,15 @@ class Dropdown {
 
        const dropdownOpen = document.createElement("div")
        dropdownOpen.className = "dropdownOpen"
+
+       const search = document.createElement("input")
+       search.type = "text"
+       search.placeholder = `Rechercher un ${this.name.toLowerCase().slice(0, this.name.length -1)}`
+
+       dropdownOpen.appendChild(search)
+
+       const optionWrapper = document.createElement('div')
+       optionWrapper.className = "optionWrapper"
 
         this.options.forEach(value => {
             const option = document.createElement('button');
@@ -62,8 +71,10 @@ class Dropdown {
                 }
                     
             })
-            dropdownOpen.appendChild(option)
+            optionWrapper.appendChild(option)
         })
+
+        dropdownOpen.appendChild(optionWrapper)
         
 
         dropdown.append(dropdownButton,dropdownOpen);

@@ -27,16 +27,29 @@
 
 .dropdownOpen {
     display: none;
-    grid-template-columns: 1fr 1fr 1fr;
     position: absolute;
     border-radius: 7px;
     overflow: hidden;
     z-index: 2;
 }
 
+.dropdownOpen input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 10px;
+}
+
+.optionWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .dropdownOpen button {
     margin: 0;
     padding: 10px;
+    justify-self: start;
 }
 
 .dropdownWrapper.ustensils button {
