@@ -83,3 +83,7 @@
 .dropdownWrapper.ustensils .dropdownOpen {
     background-color: #ED6454;
 }
+
+.dropdownWrapper.ingredients * {
+    background-color: #3282F7;
+}

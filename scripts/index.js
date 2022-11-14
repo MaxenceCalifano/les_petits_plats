@@ -2,13 +2,20 @@ import { RecipesFactory } from "./factories/RecipesFactory.js"
 import { Dropdown } from "./Components/Dropdown.js"
 
 let recipes;
+
+let ingredients = []
+let allIngredients = []
+
 let selectedAppliance = []
 let selectedUstensils = []
 
 let allUstensils = []
 let ustensils = []
+
 let allAppliances = []
 let appliances = []
+
+let sortedRecipes = [];
 
 const main = document.querySelector("main")
 
@@ -40,7 +47,7 @@ function displayCards(recipesList) {
 }
 
 function sortRecipes(userInput) {
-    let sortedRecipes = recipes;
+    //let sortedRecipes = recipes;
    /*  console.log('sortedREcipes: ',sortedRecipes)
     console.log('selected ustensils: ', selectedUstensils)
     console.log('selected appliances: ', selectedAppliance) */
@@ -84,9 +91,15 @@ function sortRecipes(userInput) {
         const dropdowns = document.querySelector(".dropdowns")
         const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
         const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
+        const updatedIngredientsDropdown = new Dropdown(ustensils, "Ingrédients", updateSelection, selectedUstensils).render()
+
+        const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
+        dropdowns.removeChild(appliancesDropdown)
+
         dropdowns.firstChild.remove()
         dropdowns.lastChild.remove()
-        dropdowns.insertAdjacentElement('afterbegin', updatedAppliancesDropdown)
+        dropdowns.insertAdjacentElement('afterbegin', updatedIngredientsDropdown)
+        dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
         dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
  
         console.log(appliances, allAppliances)
@@ -127,16 +140,26 @@ function sortRecipes(userInput) {
 async function init() {
 
     recipes = await getRecipes();
-
+    sortedRecipes = recipes;
 
     //DROPDOWNS
+
+
+    //Create list of ingredients without doubles
+    recipes.forEach(element => element.ingredients.forEach(ingredient => {
+        if(!allIngredients.includes(ingredient.ingredient)) {
+            allIngredients.push(ingredient.ingredient)
+        }
+    }))
+    allIngredients.sort((a, b) => a.localeCompare(b))
+
     //Create list of ustensils without doubles
- 
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
         if(!allUstensils.includes(ustensil)) {
             allUstensils.push(ustensil)
         }
     }))
+    allUstensils.sort((a, b) => a.localeCompare(b))
     
     //Create list of appliances without doubles
     recipes.forEach(element => {
@@ -144,13 +167,15 @@ async function init() {
             allAppliances.push(element.appliance)
         }
     })
+    allAppliances.sort((a, b) => a.localeCompare(b))
 
+    const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", updateSelection, selectedUstensils).render()
     const ustensilsDropdown = new Dropdown(allUstensils, "Ustensiles", updateSelection, selectedUstensils).render()
     const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"
-    dropdowns.append(applianceDropdown, ustensilsDropdown)
+    dropdowns.append(ingredientsDropdown, applianceDropdown, ustensilsDropdown)
 
     main.appendChild(dropdowns)
 

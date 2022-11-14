@@ -14,11 +14,20 @@ class Dropdown {
     }
     
     render() {
-
-        const customClass = this.name === "Ustensiles" ? "ustensils" : "appliances"
+        let customClass = ""
+        
+        if(this.name === "Ustensiles") {
+            customClass = "ustensils"
+        }//this.name === "Ustensiles" ? "ustensils" : "appliances"
+        if(this.name === "Appareils") {
+            customClass = "appliances"
+        }//this.name === "Ustensiles" ? "ustensils" : "appliances"
+        if(this.name === "Ingrédients") {
+            customClass = "ingredients"
+        }//this.name === "Ustensiles" ? "ustensils" : "appliances"
 
         const dropdown = document.createElement('div');
-        dropdown.classList.add('dropdownWrapper',customClass)
+        dropdown.classList.add('dropdownWrapper', customClass)
 
         const dropdownButton = document.createElement('button');
         dropdownButton.className = "dropdownButton";
@@ -61,6 +70,7 @@ class Dropdown {
             option.value = value
             option.addEventListener('click', () => {
                 if(this.selection.includes(option.value)) {
+                    // Remove the item
                     this.selection.splice(this.selection.indexOf(option.value), 1)
                     this.updateSelection()
                     option.setAttribute("selected", false)
