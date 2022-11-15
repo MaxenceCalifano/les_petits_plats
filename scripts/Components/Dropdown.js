@@ -28,6 +28,10 @@ class Dropdown {
             customClass = "ingredients"
         }//this.name === "Ustensiles" ? "ustensils" : "appliances"
 
+        // Get tags div to create and remove tags in it
+        const tags = document.querySelector(".tags")
+        const dropdowns = document.querySelector(".dropdowns")
+
         const dropdown = document.createElement('div');
         dropdown.classList.add('dropdownWrapper', customClass)
 
@@ -71,7 +75,6 @@ class Dropdown {
            
             option.value = value
             if(this.selection.includes(option.value)) {
-                console.log('test')
                 option.setAttribute("selected", true)
             }
 

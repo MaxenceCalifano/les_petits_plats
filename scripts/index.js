@@ -1,5 +1,6 @@
 import { RecipesFactory } from "./factories/RecipesFactory.js"
 import { Dropdown } from "./Components/Dropdown.js"
+import { Tag } from "./Components/Tag.js"
 
 let recipes;
 
@@ -135,6 +136,31 @@ function sortRecipes(userInput) {
       console.log(appliances, allAppliances)
     
     console.log(sortedRecipes)
+
+    const prevtags = document.querySelector(".tags")
+
+    prevtags !=null ? prevtags.remove() : ""
+
+    const tags = document.createElement("div");
+    tags.className = "tags"
+
+
+    selectedIngredients.forEach( ingredient => {
+        const tag = new Tag(ingredient, "ingredient").render()
+        tags.appendChild(tag)
+    })
+    
+    selectedAppliance.forEach( appliance => {
+        const tag = new Tag(appliance, "appliance").render()
+        tags.appendChild(tag)
+    })
+
+    selectedUstensils.forEach( ustensil => {
+        const tag = new Tag(ustensil, "ustensils").render()
+        tags.appendChild(tag)
+    })
+
+    dropdowns.insertAdjacentElement("beforebegin", tags)
 
     //sortedRecipes.filter(checkUstensils)
     
