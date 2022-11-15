@@ -6,6 +6,7 @@ let recipes;
 let ingredients = []
 let allIngredients = []
 
+let selectedIngredients = []
 let selectedAppliance = []
 let selectedUstensils = []
 
@@ -51,6 +52,7 @@ function sortRecipes(userInput) {
    /*  console.log('sortedREcipes: ',sortedRecipes)
     console.log('selected ustensils: ', selectedUstensils)
     console.log('selected appliances: ', selectedAppliance) */
+    console.log('sortedrecipe', sortedRecipes)
 
     if(userInput) {
         /**
@@ -68,43 +70,12 @@ function sortRecipes(userInput) {
             }
         })
 
-        /**
-         * Get appliances from the selected recipes
-         */
-        appliances = []
-        sortedRecipes.forEach(element => {
-            if(!appliances.includes(element.appliance)) {
-                appliances.push(element.appliance)
-            }
-        })
-        /**
-         * Get ustensils from the selected recipes
-         */
-        ustensils = []
-        sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
-            if(!ustensils.includes(ustensil)) {
-                ustensils.push(ustensil)
-            }
-        }))
-
-        // Update dropdowns
-        const dropdowns = document.querySelector(".dropdowns")
-        const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
-        const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
-        const updatedIngredientsDropdown = new Dropdown(ustensils, "Ingrédients", updateSelection, selectedUstensils).render()
-
-        const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
-        dropdowns.removeChild(appliancesDropdown)
-
-        dropdowns.firstChild.remove()
-        dropdowns.lastChild.remove()
-        dropdowns.insertAdjacentElement('afterbegin', updatedIngredientsDropdown)
-        dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
-        dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
- 
-        console.log(appliances, allAppliances)
+       
     }
    
+    /**
+     * vérifie si des appareils ont été séléctionnés et tri les recettes en fonction
+     */
     if(selectedAppliance.length > 0) {
         sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
     }
@@ -112,7 +83,44 @@ function sortRecipes(userInput) {
     
     if(selectedUstensils.length > 0) {
         sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))
-        }
+    }
+
+     /**
+         * Get appliances from the selected recipes
+         */
+      appliances = []
+      sortedRecipes.forEach(element => {
+          if(!appliances.includes(element.appliance)) {
+              appliances.push(element.appliance)
+          }
+      })
+      /**
+       * Get ustensils from the selected recipes
+       */
+      ustensils = []
+      sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
+          if(!ustensils.includes(ustensil)) {
+              ustensils.push(ustensil)
+          }
+      }))
+
+      console.log(selectedUstensils)
+      // Update dropdowns
+      const dropdowns = document.querySelector(".dropdowns")
+      const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
+      const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
+      const updatedIngredientsDropdown = new Dropdown(ustensils, "Ingrédients", updateSelection, selectedUstensils).render()
+
+      const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
+      dropdowns.removeChild(appliancesDropdown)
+
+      dropdowns.firstChild.remove()
+      dropdowns.lastChild.remove()
+      dropdowns.insertAdjacentElement('beforeend', updatedIngredientsDropdown)
+      dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
+      dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
+
+      console.log(appliances, allAppliances)
     
     console.log(sortedRecipes)
 
@@ -134,6 +142,7 @@ function sortRecipes(userInput) {
          * et re appel displays cards avec les recette triées
          */
         //console.log(selectedAppliance, selectedUstensils)
+        console.log(selectedAppliance)
         sortRecipes()
     }
 
@@ -169,7 +178,7 @@ async function init() {
     })
     allAppliances.sort((a, b) => a.localeCompare(b))
 
-    const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", updateSelection, selectedUstensils).render()
+    const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", updateSelection, selectedIngredients).render()
     const ustensilsDropdown = new Dropdown(allUstensils, "Ustensiles", updateSelection, selectedUstensils).render()
     const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
     

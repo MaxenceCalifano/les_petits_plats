@@ -11,6 +11,8 @@ class Dropdown {
             on stock les valeurs séléctionné par l'user
             au click sur chacune des valeur on change le style
         */
+
+            console.log('this.selection', this.selection)
     }
     
     render() {
@@ -66,8 +68,13 @@ class Dropdown {
         this.options.forEach(value => {
             const option = document.createElement('button');
             option.textContent = value;
-            option.setAttribute("selected", false)
+           
             option.value = value
+            if(this.selection.includes(option.value)) {
+                console.log('test')
+                option.setAttribute("selected", true)
+            }
+
             option.addEventListener('click', () => {
                 if(this.selection.includes(option.value)) {
                     // Remove the item
