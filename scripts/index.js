@@ -137,6 +137,7 @@ function sortRecipes(userInput) {
     
     console.log(sortedRecipes)
 
+    // Remove previous tags, then create new ones
     const prevtags = document.querySelector(".tags")
 
     prevtags !=null ? prevtags.remove() : ""
@@ -146,17 +147,17 @@ function sortRecipes(userInput) {
 
 
     selectedIngredients.forEach( ingredient => {
-        const tag = new Tag(ingredient, "ingredient").render()
+        const tag = new Tag(ingredient, "ingredient", selectedIngredients, sortRecipes).render()
         tags.appendChild(tag)
     })
     
     selectedAppliance.forEach( appliance => {
-        const tag = new Tag(appliance, "appliance").render()
+        const tag = new Tag(appliance, "appliance", selectedAppliance, sortRecipes).render()
         tags.appendChild(tag)
     })
 
     selectedUstensils.forEach( ustensil => {
-        const tag = new Tag(ustensil, "ustensils").render()
+        const tag = new Tag(ustensil, "ustensils", selectedUstensils, sortRecipes).render()
         tags.appendChild(tag)
     })
 

@@ -9,6 +9,10 @@
     border-radius: 5px;
     color: white;
     font-weight: 500;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
 }
 
 .tag.ingredient {

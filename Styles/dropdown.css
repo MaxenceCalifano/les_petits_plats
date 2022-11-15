@@ -41,6 +41,15 @@
     padding: 10px;
 }
 
+.dropdownOpen input:focus-visible {
+    outline: none;
+}
+
+.dropdownOpen input::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
 .optionWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
