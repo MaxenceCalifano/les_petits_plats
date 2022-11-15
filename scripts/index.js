@@ -49,11 +49,10 @@ function displayCards(recipesList) {
 }
 
 function sortRecipes(userInput) {
-    //let sortedRecipes = recipes;
+    sortedRecipes = recipes;
    /*  console.log('sortedREcipes: ',sortedRecipes)
     console.log('selected ustensils: ', selectedUstensils)
     console.log('selected appliances: ', selectedAppliance) */
-    console.log('sortedrecipe', sortedRecipes)
 
     if(userInput) {
         /**
@@ -81,17 +80,17 @@ function sortRecipes(userInput) {
         sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
     }
 
-    
     if(selectedUstensils.length > 0) {
         sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))
     }
+
     if(selectedIngredients.length > 0) {
         sortedRecipes = sortedRecipes.filter( recipe => recipe.ingredients.some( ingredient => selectedIngredients.includes(ingredient.ingredient)))
     }
 
      /**
          * Get appliances from the selected recipes
-         */
+     */
       appliances = []
       sortedRecipes.forEach(element => {
           if(!appliances.includes(element.appliance)) {
@@ -133,9 +132,7 @@ function sortRecipes(userInput) {
       dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
       dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
 
-      console.log(appliances, allAppliances)
-    
-    console.log(sortedRecipes)
+     console.log(sortedRecipes)
 
     // Remove previous tags, then create new ones
     const prevtags = document.querySelector(".tags")
@@ -163,7 +160,6 @@ function sortRecipes(userInput) {
 
     dropdowns.insertAdjacentElement("beforebegin", tags)
 
-    //sortedRecipes.filter(checkUstensils)
     
         /**
          * pour chaque recette, on veut vérifier si elle contient dans ses ustensils, l'un des ustensils de la séléction
@@ -232,10 +228,10 @@ async function init() {
     const search = document.querySelector(".search")
 
     search.addEventListener("keyup", (e) => {
-        if(e.target.value.length > 2) {
+       // if(e.target.value.length > 2) {
             //On déclenche la recherche
             sortRecipes(e.target.value)
-        }
+        //}
     })
 }  
 

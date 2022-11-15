@@ -12,7 +12,6 @@ class Dropdown {
             au click sur chacune des valeur on change le style
         */
 
-            console.log('this.selection', this.selection)
     }
     
     render() {

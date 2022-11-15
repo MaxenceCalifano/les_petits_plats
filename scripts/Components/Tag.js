@@ -12,13 +12,10 @@ class Tag {
         tag.textContent = this.tagName
 
         tag.addEventListener('click', () => {
-            console.log(tag)
             if(this.selection.includes(tag.textContent)) {
                 // Remove the item
                 this.selection.splice(this.selection.indexOf(tag.textContent), 1)
                 this.sortRecipe()
-                console.log(this.selection)
-                //this.updateSelection()
             }
                 
         })
@@ -31,21 +28,5 @@ class Tag {
         return tag
     }
 }
-
-/**
- * option.addEventListener('click', () => {
-                if(this.selection.includes(option.value)) {
-                    // Remove the item
-                    this.selection.splice(this.selection.indexOf(option.value), 1)
-                    this.updateSelection()
-                    option.setAttribute("selected", false)
-                } else {
-                    this.selection.push(option.value)
-                    this.updateSelection()
-                    option.setAttribute("selected", true)
-                }
-                    
-            })
- */
 
 export { Tag }
