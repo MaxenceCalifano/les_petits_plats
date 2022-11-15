@@ -11,10 +11,11 @@ class Dropdown {
             on stock les valeurs séléctionné par l'user
             au click sur chacune des valeur on change le style
         */
-
     }
     
     render() {
+        this.options.sort((a, b) => a.localeCompare(b))
+
         let customClass = ""
         
         if(this.name === "Ustensiles") {
@@ -26,10 +27,6 @@ class Dropdown {
         if(this.name === "Ingrédients") {
             customClass = "ingredients"
         }//this.name === "Ustensiles" ? "ustensils" : "appliances"
-
-        // Get tags div to create and remove tags in it
-        const tags = document.querySelector(".tags")
-        const dropdowns = document.querySelector(".dropdowns")
 
         const dropdown = document.createElement('div');
         dropdown.classList.add('dropdownWrapper', customClass)
