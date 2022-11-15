@@ -56,9 +56,57 @@ class Dropdown {
        const dropdownOpen = document.createElement("div")
        dropdownOpen.className = "dropdownOpen"
 
-       const search = document.createElement("input")
-       search.type = "text"
-       search.placeholder = `Rechercher un ${this.name.toLowerCase().slice(0, this.name.length -1)}`
+
+    // Input
+    const search = document.createElement("input")
+    search.type = "text"
+    search.placeholder = `Rechercher un ${this.name.toLowerCase().slice(0, this.name.length -1)}`
+
+    console.log(this.options)
+
+    search.addEventListener("keyup", (e) => {
+        
+        let options;
+        if(this.name === "Ingrédients") {
+            options = document.querySelectorAll(".optionWrapper")[0]
+        }
+        if(this.name === "Appareils") {
+            options = document.querySelectorAll(".optionWrapper")[1]
+        }
+        if(this.name === "Ustensiles") {
+            options = document.querySelectorAll(".optionWrapper")[2]
+        }
+        
+        let filteredOptions = this.options.filter( element => element.includes(e.target.value));
+        console.log(filteredOptions)
+    
+        options.innerHTML = "" 
+
+        filteredOptions.forEach( option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+           
+            button.value = option
+            if(this.selection.includes(button.value)) {
+                button.setAttribute("selected", true)
+            }
+
+            button.addEventListener('click', () => {
+                if(this.selection.includes(button.value)) {
+                    // Remove the item
+                    this.selection.splice(this.selection.indexOf(button.value), 1)
+                    this.updateSelection()
+                    button.setAttribute("selected", false)
+                } else {
+                    this.selection.push(button.value)
+                    this.updateSelection()
+                    button.setAttribute("selected", true)
+                }
+                    
+            })
+            options.appendChild(button)
+        })
+    })
 
        dropdownOpen.appendChild(search)
 
