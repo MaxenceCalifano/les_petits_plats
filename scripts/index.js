@@ -84,6 +84,9 @@ function sortRecipes(userInput) {
     if(selectedUstensils.length > 0) {
         sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))
     }
+    if(selectedIngredients.length > 0) {
+        sortedRecipes = sortedRecipes.filter( recipe => recipe.ingredients.some( ingredient => selectedIngredients.includes(ingredient.ingredient)))
+    }
 
      /**
          * Get appliances from the selected recipes
@@ -103,13 +106,22 @@ function sortRecipes(userInput) {
               ustensils.push(ustensil)
           }
       }))
+    
+      /**
+       * Get ingredients from the selected recipes
+       */
+      ingredients = []
+      sortedRecipes.forEach(element => element.ingredients.forEach(ingredient => {
+          if(!ingredients.includes(ingredient.ingredient)) {
+              ingredients.push(ingredient.ingredient)
+          }
+      }))
 
-      console.log(selectedUstensils)
       // Update dropdowns
       const dropdowns = document.querySelector(".dropdowns")
       const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
       const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
-      const updatedIngredientsDropdown = new Dropdown(ustensils, "Ingrédients", updateSelection, selectedUstensils).render()
+      const updatedIngredientsDropdown = new Dropdown(ingredients, "Ingrédients", updateSelection, selectedIngredients).render()
 
       const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
       dropdowns.removeChild(appliancesDropdown)
