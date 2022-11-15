@@ -64,6 +64,10 @@
     background-color: #295b44;
 }
 
+.dropdownWrapper.ingredients button[selected=true] {
+    background-color: #204f95;
+}
+
 .dropdownWrapper.ustensils button:hover {
     background-color: #93392f;
 }
@@ -84,6 +88,11 @@
     background-color: #ED6454;
 }
 
-.dropdownWrapper.ingredients * {
+.dropdownWrapper.ingredients .dropdownOpen,
+.dropdownWrapper.ingredients button {
     background-color: #3282F7;
+}
+
+.dropdownWrapper.ingredients button:hover {
+    background-color: #2256a4;
 }
