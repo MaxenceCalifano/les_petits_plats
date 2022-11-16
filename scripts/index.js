@@ -10,6 +10,7 @@ let allIngredients = []
 let selectedIngredients = []
 let selectedAppliance = []
 let selectedUstensils = []
+let userInput = ""
 
 let allUstensils = []
 let ustensils = []
@@ -48,13 +49,13 @@ function displayCards(recipesList) {
      main.append(recipesCards)
 }
 
-function sortRecipes(userInput) {
+function sortRecipes() {
     sortedRecipes = recipes;
    /*  console.log('sortedREcipes: ',sortedRecipes)
     console.log('selected ustensils: ', selectedUstensils)
     console.log('selected appliances: ', selectedAppliance) */
 
-    if(userInput) {
+    if(userInput.length > 2 ) {
         /**
          * chercher si la string de l'utilisateur est dans le titre, les ingrédients, et la description
          */
@@ -225,11 +226,14 @@ async function init() {
     displayCards(recipes)
 
     const search = document.querySelector(".search")
+    console.log(search)
+    search.value = ""
 
     search.addEventListener("keyup", (e) => {
        // if(e.target.value.length > 2) {
             //On déclenche la recherche
-            sortRecipes(e.target.value)
+            userInput = e.target.value
+            sortRecipes()
         //}
     })
 }  
