@@ -80,13 +80,18 @@ function sortRecipes() {
     if(selectedAppliance.length > 0) {
         sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
     }
-
     if(selectedUstensils.length > 0) {
-        sortedRecipes = sortedRecipes.filter( recipe => recipe.ustensils.some( ustensil => selectedUstensils.includes(ustensil)))
+        sortedRecipes = sortedRecipes.filter( recipe => selectedUstensils.every(value => recipe.ustensils.includes(value)))
     }
 
     if(selectedIngredients.length > 0) {
-        sortedRecipes = sortedRecipes.filter( recipe => recipe.ingredients.some( ingredient => selectedIngredients.includes(ingredient.ingredient)))
+        sortedRecipes = sortedRecipes.filter( recipe => {
+            let testArray = []
+            recipe.ingredients.forEach(ingredient => testArray.push(ingredient.ingredient))
+            return selectedIngredients.every(value => testArray.includes(value))
+            
+            
+        })
     }
 
      /**
@@ -135,7 +140,7 @@ function sortRecipes() {
 
      console.log(sortedRecipes)
 
-    // Remove previous tags, then create new ones
+    // TAGS : Remove previous tags, then create new ones
     const prevtags = document.querySelector(".tags")
 
     prevtags !=null ? prevtags.remove() : ""
@@ -226,7 +231,6 @@ async function init() {
     displayCards(recipes)
 
     const search = document.querySelector(".search")
-    console.log(search)
     search.value = ""
 
     search.addEventListener("keyup", (e) => {
