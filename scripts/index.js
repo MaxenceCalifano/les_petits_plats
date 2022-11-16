@@ -49,9 +49,7 @@ function displayCards(recipesList) {
      main.append(recipesCards)
 }
 
-function sortRecipes() {
-    sortedRecipes = recipes;
-
+function searchWithUserInput() {
     if(userInput.length > 2 ) {
         /**
          * Search if user user input is in the title, description and ingredients
@@ -60,82 +58,88 @@ function sortRecipes() {
             if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
                 return true
             }
-            if(recipe.name.toLowerCase().includes(userInput.toLocaleLowerCase())) {
+            if(recipe.name.toLowerCase().includes(userInput.toLowerCase())) {
                 return true
             }
-            if(recipe.description.toLowerCase().includes(userInput.toLocaleLowerCase())) {
+            if(recipe.description.toLowerCase().includes(userInput.toLowerCase())) {
                 return true
             }
         })
     }
-   
-    /**
-     * vérifie si des appareils ont été séléctionnés et tri les recettes en fonction
-     */
+}
+
+function filterWithSelectedAppliances() {
     if(selectedAppliance.length > 0) {
         sortedRecipes = sortedRecipes.filter(recipe => selectedAppliance.includes(recipe.appliance))
     }
+}
+function filterWithSelectedUstensils() {
     if(selectedUstensils.length > 0) {
         sortedRecipes = sortedRecipes.filter( recipe => selectedUstensils.every(value => recipe.ustensils.includes(value)))
     }
+}
+function filterWithSelectedIngredients() {
+    sortedRecipes = sortedRecipes.filter( recipe => {
+        let array = []
+        recipe.ingredients.forEach(ingredient => array.push(ingredient.ingredient))
+        return selectedIngredients.every(value => array.includes(value))
+    })
+}
 
-    if(selectedIngredients.length > 0) {
-        sortedRecipes = sortedRecipes.filter( recipe => {
-            let testArray = []
-            recipe.ingredients.forEach(ingredient => testArray.push(ingredient.ingredient))
-            return selectedIngredients.every(value => testArray.includes(value))
-            
-            
-        })
-    }
-
-     /**
-         * Get appliances from the selected recipes
-     */
-      appliances = []
+/**
+* Get appliances from the selected recipes, used to update dropdowns
+*/
+function getAppliances() {
+    appliances = []
       sortedRecipes.forEach(element => {
           if(!appliances.includes(element.appliance)) {
               appliances.push(element.appliance)
           }
       })
-      /**
-       * Get ustensils from the selected recipes
-       */
-      ustensils = []
-      sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
-          if(!ustensils.includes(ustensil)) {
-              ustensils.push(ustensil)
-          }
-      }))
-    
-      /**
-       * Get ingredients from the selected recipes
-       */
-      ingredients = []
-      sortedRecipes.forEach(element => element.ingredients.forEach(ingredient => {
-          if(!ingredients.includes(ingredient.ingredient)) {
-              ingredients.push(ingredient.ingredient)
-          }
-      }))
+}
 
-      // Update dropdowns
-      const dropdowns = document.querySelector(".dropdowns")
-      const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", updateSelection, selectedAppliance).render()
-      const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", updateSelection, selectedUstensils).render()
-      const updatedIngredientsDropdown = new Dropdown(ingredients, "Ingrédients", updateSelection, selectedIngredients).render()
+/**
+* Get ustensils from the selected recipes
+*/
+function getUstensils() {
+     ustensils = []
+     sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
+         if(!ustensils.includes(ustensil)) {
+             ustensils.push(ustensil)
+         }
+     }))
+}
 
-      const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
-      dropdowns.removeChild(appliancesDropdown)
+/**
+* Get ingredients from the selected recipes
+*/
+function getIngredients() {
+     ingredients = []
+     sortedRecipes.forEach(element => element.ingredients.forEach(ingredient => {
+         if(!ingredients.includes(ingredient.ingredient)) {
+             ingredients.push(ingredient.ingredient)
+         }
+     }))
+}
 
-      dropdowns.firstChild.remove()
-      dropdowns.lastChild.remove()
-      dropdowns.insertAdjacentElement('beforeend', updatedIngredientsDropdown)
-      dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
-      dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
+function updateDropdowns() {
+     const dropdowns = document.querySelector(".dropdowns")
+     const updatedAppliancesDropdown = new Dropdown(appliances, "Appareils", sortRecipes, selectedAppliance).render()
+     const updatedUstensilsDropdown = new Dropdown(ustensils, "Ustensiles", sortRecipes, selectedUstensils).render()
+     const updatedIngredientsDropdown = new Dropdown(ingredients, "Ingrédients", sortRecipes, selectedIngredients).render()
 
-     console.log(sortedRecipes)
+     const appliancesDropdown =  document.querySelector(".dropdownWrapper.appliances")
+     dropdowns.removeChild(appliancesDropdown)
 
-    // TAGS : Remove previous tags, then create new ones
+     dropdowns.firstChild.remove()
+     dropdowns.lastChild.remove()
+     dropdowns.insertAdjacentElement('beforeend', updatedIngredientsDropdown)
+     dropdowns.insertAdjacentElement('beforeend', updatedAppliancesDropdown)
+     dropdowns.insertAdjacentElement('beforeend', updatedUstensilsDropdown)
+}
+
+// TAGS : Remove previous tags, then create new ones
+function tags(){
     const prevtags = document.querySelector(".tags")
 
     prevtags !=null ? prevtags.remove() : ""
@@ -159,14 +163,26 @@ function sortRecipes() {
         tags.appendChild(tag)
     })
 
+    const dropdowns = document.querySelector(".dropdowns")
     dropdowns.insertAdjacentElement("beforebegin", tags)
+}
 
-    displayCards(sortedRecipes)
-      
-    }
+function sortRecipes() {
+        sortedRecipes = recipes;
 
-    const updateSelection = () => {
-        sortRecipes()
+        searchWithUserInput()
+        filterWithSelectedAppliances()
+        filterWithSelectedUstensils()
+        filterWithSelectedIngredients()
+        getAppliances()
+        getUstensils()
+        getIngredients()
+        updateDropdowns()
+        tags()
+        
+        console.log(sortedRecipes)
+
+        displayCards(sortedRecipes)
     }
 
 async function init() {
@@ -181,27 +197,27 @@ async function init() {
             allIngredients.push(ingredient.ingredient[0].toUpperCase()+ ingredient.ingredient.slice(1).toLowerCase())
         }
     }))
-    allIngredients.sort((a, b) => a.localeCompare(b))
+    
 
     //Create list of ustensils without doubles
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
-        if(!allUstensils.includes(ustensil)) {
-            allUstensils.push(ustensil)
+        if(!allUstensils.includes(ustensil[0].toUpperCase()+ ustensil.slice(1).toLowerCase())) {
+            allUstensils.push(ustensil[0].toUpperCase()+ ustensil.slice(1).toLowerCase())
         }
     }))
-    allUstensils.sort((a, b) => a.localeCompare(b))
+   
     
     //Create list of appliances without doubles
     recipes.forEach(element => {
-        if(!allAppliances.includes(element.appliance)) {
-            allAppliances.push(element.appliance)
+        if(!allAppliances.includes(element.appliance[0].toUpperCase()+ element.appliance.slice(1).toLowerCase())) {
+            allAppliances.push(element.appliance[0].toUpperCase()+ element.appliance.slice(1).toLowerCase())
         }
     })
-    allAppliances.sort((a, b) => a.localeCompare(b))
+  
 
-    const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", updateSelection, selectedIngredients).render()
-    const ustensilsDropdown = new Dropdown(allUstensils, "Ustensiles", updateSelection, selectedUstensils).render()
-    const applianceDropdown = new Dropdown(allAppliances, "Appareils", updateSelection, selectedAppliance).render()
+    const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", sortRecipes, selectedIngredients).render()
+    const ustensilsDropdown = new Dropdown(allUstensils, "Ustensiles", sortRecipes, selectedUstensils).render()
+    const applianceDropdown = new Dropdown(allAppliances, "Appareils", sortRecipes, selectedAppliance).render()
     
     const dropdowns = document.createElement("div");
     dropdowns.className = "dropdowns"

@@ -5,12 +5,6 @@ class Dropdown {
         this.isOpen = false
         this.updateSelection = updateSelection
         this.selection = selection
-        // doit retourner toutes les options choisies
-        /*  Bouton avec une fléche
-            au click sur la fleche on display une div qui contient toutes les options possibles
-            on stock les valeurs séléctionné par l'user
-            au click sur chacune des valeur on change le style
-        */
     }
     
     render() {
