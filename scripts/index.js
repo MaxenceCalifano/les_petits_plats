@@ -51,13 +51,10 @@ function displayCards(recipesList) {
 
 function sortRecipes() {
     sortedRecipes = recipes;
-   /*  console.log('sortedREcipes: ',sortedRecipes)
-    console.log('selected ustensils: ', selectedUstensils)
-    console.log('selected appliances: ', selectedAppliance) */
 
     if(userInput.length > 2 ) {
         /**
-         * chercher si la string de l'utilisateur est dans le titre, les ingrédients, et la description
+         * Search if user user input is in the title, description and ingredients
          */
         sortedRecipes = sortedRecipes.filter(recipe => {
             if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
@@ -70,8 +67,6 @@ function sortRecipes() {
                 return true
             }
         })
-
-       
     }
    
     /**
@@ -166,23 +161,11 @@ function sortRecipes() {
 
     dropdowns.insertAdjacentElement("beforebegin", tags)
 
-    
-        /**
-         * pour chaque recette, on veut vérifier si elle contient dans ses ustensils, l'un des ustensils de la séléction
-         * Ensuite on veut garder que celle qui a un des ustensils de la séléction
-         */
-        displayCards(sortedRecipes)
+    displayCards(sortedRecipes)
       
     }
 
-    
-    const updateSelection = (value) => {
-        //selectedAppliance.push(value)
-        /**
-         * appel la fonction de tri
-         * et re appel displays cards avec les recette triées
-         */
-        //console.log(selectedAppliance, selectedUstensils)
+    const updateSelection = () => {
         sortRecipes()
     }
 
@@ -192,8 +175,6 @@ async function init() {
     sortedRecipes = recipes;
 
     //DROPDOWNS
-
-
     //Create list of ingredients without doubles
     recipes.forEach(element => element.ingredients.forEach(ingredient => {
         if(!allIngredients.includes(ingredient.ingredient)) {
@@ -230,6 +211,7 @@ async function init() {
 
     displayCards(recipes)
 
+    //SEARCH
     const search = document.querySelector(".search")
     search.value = ""
 
