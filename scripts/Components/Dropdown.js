@@ -63,7 +63,14 @@ class Dropdown {
     search.placeholder = `Rechercher un ${this.name.toLowerCase().slice(0, this.name.length -1)}`
 
     search.addEventListener("keyup", (e) => {
-        
+        let input ="";
+        if(e.target.value.length > 0) {
+            input = e.target.value[0].toUpperCase() + e.target.value.slice(1).toLowerCase()
+        }
+        if(e.target.value < 0) {
+            input = ""
+        }
+
         let options;
         if(this.name === "Ingrédients") {
             options = document.querySelectorAll(".optionWrapper")[0]
@@ -74,8 +81,7 @@ class Dropdown {
         if(this.name === "Ustensiles") {
             options = document.querySelectorAll(".optionWrapper")[2]
         }
-        
-        let filteredOptions = this.options.filter( element => element.includes(e.target.value));
+        let filteredOptions = this.options.filter( element => element.includes(input));
         console.log(filteredOptions)
     
         options.innerHTML = "" 

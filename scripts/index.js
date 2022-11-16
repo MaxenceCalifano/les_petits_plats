@@ -60,10 +60,10 @@ function sortRecipes() {
             if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
                 return true
             }
-            if(recipe.name.includes(userInput)) {
+            if(recipe.name.toLowerCase().includes(userInput.toLocaleLowerCase())) {
                 return true
             }
-            if(recipe.description.includes(userInput)) {
+            if(recipe.description.toLowerCase().includes(userInput.toLocaleLowerCase())) {
                 return true
             }
         })
@@ -177,8 +177,8 @@ async function init() {
     //DROPDOWNS
     //Create list of ingredients without doubles
     recipes.forEach(element => element.ingredients.forEach(ingredient => {
-        if(!allIngredients.includes(ingredient.ingredient)) {
-            allIngredients.push(ingredient.ingredient)
+        if(!allIngredients.includes(ingredient.ingredient[0].toUpperCase()+ ingredient.ingredient.slice(1).toLowerCase())) {
+            allIngredients.push(ingredient.ingredient[0].toUpperCase()+ ingredient.ingredient.slice(1).toLowerCase())
         }
     }))
     allIngredients.sort((a, b) => a.localeCompare(b))
