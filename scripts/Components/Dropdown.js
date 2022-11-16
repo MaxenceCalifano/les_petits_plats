@@ -62,8 +62,6 @@ class Dropdown {
     search.type = "text"
     search.placeholder = `Rechercher un ${this.name.toLowerCase().slice(0, this.name.length -1)}`
 
-    console.log(this.options)
-
     search.addEventListener("keyup", (e) => {
         
         let options;
@@ -82,6 +80,7 @@ class Dropdown {
     
         options.innerHTML = "" 
 
+        // Create new tag corresponding with the search input
         filteredOptions.forEach( option => {
             const button = document.createElement('button');
             button.textContent = option;

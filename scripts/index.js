@@ -177,7 +177,6 @@ function sortRecipes(userInput) {
          * et re appel displays cards avec les recette triées
          */
         //console.log(selectedAppliance, selectedUstensils)
-        console.log(selectedAppliance)
         sortRecipes()
     }
 
