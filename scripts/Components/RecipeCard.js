@@ -10,6 +10,11 @@ class RecipeCard {
         const imagePlaceHolder = document.createElement("div")
         imagePlaceHolder.className = "imagePlaceHolder"
 
+        const image = document.createElement("img")
+        image.src = this.data.image
+
+        imagePlaceHolder.appendChild(image)
+
         const infoWrapper = document.createElement("div")
         infoWrapper.className = "infoWrapper"
 
