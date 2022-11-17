@@ -59,7 +59,7 @@ class Dropdown {
     search.addEventListener("keyup", (e) => {
         let input ="";
         if(e.target.value.length > 0) {
-            input = e.target.value[0].toUpperCase() + e.target.value.slice(1).toLowerCase()
+            input = e.target.value.toLowerCase()
         }
         if(e.target.value < 0) {
             input = ""
@@ -83,7 +83,7 @@ class Dropdown {
         // Create new tag corresponding with the search input
         filteredOptions.forEach( option => {
             const button = document.createElement('button');
-            button.textContent = option;
+            button.textContent = option[0].toUpperCase() + option.slice(1).toLowerCase();
            
             button.value = option
             if(this.selection.includes(button.value)) {
@@ -114,7 +114,7 @@ class Dropdown {
 
         this.options.forEach(value => {
             const option = document.createElement('button');
-            option.textContent = value;
+            option.textContent = value[0].toUpperCase() + value.slice(1).toLowerCase();
            
             option.value = value
             if(this.selection.includes(option.value)) {

@@ -81,7 +81,7 @@ function filterWithSelectedUstensils() {
 function filterWithSelectedIngredients() {
     sortedRecipes = sortedRecipes.filter( recipe => {
         let array = []
-        recipe.ingredients.forEach(ingredient => array.push(ingredient.ingredient))
+        recipe.ingredients.forEach(ingredient => array.push(ingredient.ingredient.toLowerCase()))
         return selectedIngredients.every(value => array.includes(value))
     })
 }
@@ -116,8 +116,8 @@ function getUstensils() {
 function getIngredients() {
      ingredients = []
      sortedRecipes.forEach(element => element.ingredients.forEach(ingredient => {
-         if(!ingredients.includes(ingredient.ingredient)) {
-             ingredients.push(ingredient.ingredient)
+         if(!ingredients.includes(ingredient.ingredient.toLowerCase())) {
+             ingredients.push(ingredient.ingredient.toLowerCase())
          }
      }))
 }
@@ -192,27 +192,33 @@ async function init() {
 
     //DROPDOWNS
     //Create list of ingredients without doubles
+   /*  recipes.forEach(element => element.ingredients.forEach(ingredient => {
+        if(!allIngredients.includes(ingredient.ingredient)) {
+            allIngredients.push(ingredient.ingredient)
+        }
+    })) */
     recipes.forEach(element => element.ingredients.forEach(ingredient => {
-        if(!allIngredients.includes(ingredient.ingredient[0].toUpperCase()+ ingredient.ingredient.slice(1).toLowerCase())) {
-            allIngredients.push(ingredient.ingredient[0].toUpperCase()+ ingredient.ingredient.slice(1).toLowerCase())
+        if(!allIngredients.includes(ingredient.ingredient.toLowerCase())) {
+            allIngredients.push(ingredient.ingredient.toLowerCase())
         }
     }))
     
 
     //Create list of ustensils without doubles
     recipes.forEach(element => element.ustensils.forEach(ustensil => {
-        if(!allUstensils.includes(ustensil[0].toUpperCase()+ ustensil.slice(1).toLowerCase())) {
-            allUstensils.push(ustensil[0].toUpperCase()+ ustensil.slice(1).toLowerCase())
+        if(!allUstensils.includes(ustensil.toLowerCase())) {
+            allUstensils.push(ustensil.toLowerCase())
         }
     }))
    
     
     //Create list of appliances without doubles
     recipes.forEach(element => {
-        if(!allAppliances.includes(element.appliance[0].toUpperCase()+ element.appliance.slice(1).toLowerCase())) {
-            allAppliances.push(element.appliance[0].toUpperCase()+ element.appliance.slice(1).toLowerCase())
+        if(!allAppliances.includes(element.appliance.toLowerCase())) {
+            allAppliances.push(element.appliance.toLowerCase())
         }
     })
+    console.log(allIngredients)
   
 
     const ingredientsDropdown = new Dropdown(allIngredients, "Ingrédients", sortRecipes, selectedIngredients).render()
