@@ -53,7 +53,6 @@ function searchWithUserInput() {
     if(userInput.length > 2 ) {
         let filteredRecipe = [];
         let regex =    new RegExp(userInput, "i")
-        console.log(regex)
         /**
          * Search if user input is in the title, description and ingredients
          * pour chaque recette vérifier si elle contient l'élément recherché
@@ -62,17 +61,29 @@ function searchWithUserInput() {
         for(let i = 0; i < sortedRecipes.length; i++) {
             
             let elementIngredients = sortedRecipes[i].ingredients
-            for (let y = 0; y < elementIngredients.length; y++) {
-                if(regex.test(elementIngredients[y].ingredient)) {
-                    filteredRecipe.push(sortedRecipes[i])
-                    break  
-                }
-            }
-            console.log(filteredRecipe)
-                //si l'ingrédient testé match avec la string de recherche includes = true
             
-           // if(sortedRecipes[i].ingredients)
+            if(regex.test(sortedRecipes[i].name)) {
+                console.log(sortedRecipes[i].name)
+                filteredRecipe.push(sortedRecipes[i])
+                //return
+            } else if (regex.test(sortedRecipes[i].description)) {
+                console.log(sortedRecipes[i].name)
+                filteredRecipe.push(sortedRecipes[i])
+            } else {
+                // if user input is in ingredients
+                for (let y = 0; y < elementIngredients.length; y++) {
+                    if(regex.test(elementIngredients[y].ingredient)) {
+                        filteredRecipe.push(sortedRecipes[i])
+                        break  
+                    }
+                }
+            // -------------------------------
+            }
+            
+            console.log(filteredRecipe)
+            //sortedRecipes = filteredRecipe
         }
+        sortedRecipes = filteredRecipe
         /* sortedRecipes = sortedRecipes.filter(recipe => {
             if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
                 return true
