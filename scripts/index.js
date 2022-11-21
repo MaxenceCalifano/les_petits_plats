@@ -51,10 +51,29 @@ function displayCards(recipesList) {
 
 function searchWithUserInput() {
     if(userInput.length > 2 ) {
+        let filteredRecipe = [];
+        let regex =    new RegExp(userInput, "i")
+        console.log(regex)
         /**
-         * Search if user user input is in the title, description and ingredients
+         * Search if user input is in the title, description and ingredients
+         * pour chaque recette vérifier si elle contient l'élément recherché
          */
-        sortedRecipes = sortedRecipes.filter(recipe => {
+
+        for(let i = 0; i < sortedRecipes.length; i++) {
+            
+            let elementIngredients = sortedRecipes[i].ingredients
+            for (let y = 0; y < elementIngredients.length; y++) {
+                if(regex.test(elementIngredients[y].ingredient)) {
+                    filteredRecipe.push(sortedRecipes[i])
+                    break  
+                }
+            }
+            console.log(filteredRecipe)
+                //si l'ingrédient testé match avec la string de recherche includes = true
+            
+           // if(sortedRecipes[i].ingredients)
+        }
+        /* sortedRecipes = sortedRecipes.filter(recipe => {
             if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
                 return true
             }
@@ -64,7 +83,7 @@ function searchWithUserInput() {
             if(recipe.description.toLowerCase().includes(userInput.toLowerCase())) {
                 return true
             }
-        })
+        }) */
     }
 }
 
