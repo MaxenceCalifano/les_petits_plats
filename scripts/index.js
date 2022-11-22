@@ -40,13 +40,21 @@ function displayCards(recipesList) {
     const recipesCards = document.createElement("div")
     recipesCards.className = "recipesCards"
 
-    recipesList.forEach(element => {
-        const recipeCard =  new RecipesFactory(element)
- 
-        recipesCards.appendChild(recipeCard)
-     });
+    if(recipesList.length > 0) {
+        recipesList.forEach(element => {
+            const recipeCard =  new RecipesFactory(element)
      
-     main.append(recipesCards)
+            recipesCards.appendChild(recipeCard)
+         });
+    }
+
+    if(recipesList.length < 1) {
+        const noResult = document.createElement("p");
+        noResult.textContent = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+        recipesCards.appendChild(noResult)
+    }
+
+    main.append(recipesCards)
 }
 
 function searchWithUserInput() {
