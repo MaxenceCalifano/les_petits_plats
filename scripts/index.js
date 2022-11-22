@@ -79,22 +79,8 @@ function searchWithUserInput() {
                 }
             // -------------------------------
             }
-            
-            console.log(filteredRecipe)
-            //sortedRecipes = filteredRecipe
         }
         sortedRecipes = filteredRecipe
-        /* sortedRecipes = sortedRecipes.filter(recipe => {
-            if(recipe.ingredients.some(ingredient =>  ingredient.ingredient.includes(userInput))) {
-                return true
-            }
-            if(recipe.name.toLowerCase().includes(userInput.toLowerCase())) {
-                return true
-            }
-            if(recipe.description.toLowerCase().includes(userInput.toLowerCase())) {
-                return true
-            }
-        }) */
     }
 }
 
@@ -222,11 +208,6 @@ async function init() {
 
     //DROPDOWNS
     //Create list of ingredients without doubles
-   /*  recipes.forEach(element => element.ingredients.forEach(ingredient => {
-        if(!allIngredients.includes(ingredient.ingredient)) {
-            allIngredients.push(ingredient.ingredient)
-        }
-    })) */
     recipes.forEach(element => element.ingredients.forEach(ingredient => {
         if(!allIngredients.includes(ingredient.ingredient.toLowerCase())) {
             allIngredients.push(ingredient.ingredient.toLowerCase())
