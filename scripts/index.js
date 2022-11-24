@@ -99,7 +99,10 @@ function filterWithSelectedAppliances() {
 }
 function filterWithSelectedUstensils() {
     if(selectedUstensils.length > 0) {
-        sortedRecipes = sortedRecipes.filter( recipe => selectedUstensils.every(value => recipe.ustensils.includes(value)))
+        sortedRecipes = sortedRecipes.filter( recipe =>{
+            const lowerCasedUstensils = recipe.ustensils.map( elem => elem.toLowerCase())
+            console.log(lowerCasedUstensils, selectedUstensils)           
+            return selectedUstensils.every(value => lowerCasedUstensils.includes(value.toLowerCase()))})
     }
 }
 function filterWithSelectedIngredients() {
@@ -128,8 +131,8 @@ function getAppliances() {
 function getUstensils() {
      ustensils = []
      sortedRecipes.forEach(element => element.ustensils.forEach(ustensil => {
-         if(!ustensils.includes(ustensil)) {
-             ustensils.push(ustensil)
+         if(!ustensils.includes(ustensil.toLowerCase())) {
+             ustensils.push(ustensil.toLowerCase())
          }
      }))
 }
