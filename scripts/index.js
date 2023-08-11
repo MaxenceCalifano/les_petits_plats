@@ -23,7 +23,7 @@ let sortedRecipes = [];
 const main = document.querySelector("main")
 
 async function getRecipes() {
- return await fetch('../les_petits_plats/sortRecipes1/Data/recipes.json')
+ return await fetch('https://github.com/MaxenceCalifano/les_petits_plats/blob/sortRecipes1/Data/recipes.json')
  .then(res => console.log(res))
      //.then(res => res.json())
       // .then(res => res.recipes)
