@@ -24,10 +24,10 @@ const main = document.querySelector("main")
 
 async function getRecipes() {
  return await fetch('https://maxencecalifano.github.io/les_petits_plats/Data/recipes.json')
- .then(res => console.log(res))
-     //.then(res => res.json())
-      // .then(res => res.recipes)
-    //  .catch(err => console.log('an error occurs', err))
+ //.then(res => console.log(res))
+     .then(res => res.json())
+     .then(res => res.recipes)
+     .catch(err => console.log('an error occurs', err))
 }
 
 function displayCards(recipesList) {
