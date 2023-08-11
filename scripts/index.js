@@ -33,7 +33,7 @@ async function getRecipes() {
     cache: "default",
     };
     
-    return await fetch('https://github.com/MaxenceCalifano/les_petits_plats/blob/master/Data/recipes.json', myInit)
+    return await fetch('../Data/recipes.json', myInit)
         .then(res => res.json())
         .then(res => res.recipes)
         .catch(err => console.log('an error occurs', err))
