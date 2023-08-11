@@ -23,20 +23,10 @@ let sortedRecipes = [];
 const main = document.querySelector("main")
 
 async function getRecipes() {
- const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer: ${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}`);
-
-    const myInit = {
-    method: "GET",
-    headers: myHeaders,
-    mode: "no-cors",
-    cache: "default",
-    };
-    
-    return await fetch('../Data/recipes.json')
-        .then(res => res.json())
-        .then(res => res.recipes)
-        .catch(err => console.log('an error occurs', err))
+ //.then(res => console.log(res))
+       .then(res => res.json())
+       .then(res => res.recipes)
+       .catch(err => console.log('an error occurs', err))
 }
 
 function displayCards(recipesList) {
