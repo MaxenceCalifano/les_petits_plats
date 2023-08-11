@@ -24,7 +24,7 @@ const main = document.querySelector("main")
 
 async function getRecipes() {
     
-    return await fetch('../Data/recipes.json')
+    return await fetch('https://github.com/MaxenceCalifano/les_petits_plats/Data/recipes.json')
         .then(res => res.json())
         .then(res => res.recipes)
         .catch(err => console.log('an error occurs', err))
