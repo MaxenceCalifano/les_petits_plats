@@ -11,7 +11,7 @@ class RecipeCard {
         imagePlaceHolder.className = "imagePlaceHolder"
 
         const image = document.createElement("img")
-        image.src = "https://maxencecalifano.github.io/les_petits_plats" + this.data.image.slice(1)
+        image.src = "https://maxencecalifano.github.io/les_petits_plats" + this.data.image.slice(2)
 
         imagePlaceHolder.appendChild(image)
 
