@@ -23,8 +23,17 @@ let sortedRecipes = [];
 const main = document.querySelector("main")
 
 async function getRecipes() {
+ const myHeaders = new Headers();
+    myHeaders.append("Access-Control-Allow-Origin", "https://github.com/MaxenceCalifano/les_petits_plats/Data/recipes.json");
+
+    const myInit = {
+    method: "GET",
+    headers: myHeaders,
+    mode: "no-cors",
+    cache: "default",
+    };
     
-    return await fetch('https://github.com/MaxenceCalifano/les_petits_plats/Data/recipes.json')
+    return await fetch('https://github.com/MaxenceCalifano/les_petits_plats/blob/master/Data/recipes.json', myInit)
         .then(res => res.json())
         .then(res => res.recipes)
         .catch(err => console.log('an error occurs', err))
