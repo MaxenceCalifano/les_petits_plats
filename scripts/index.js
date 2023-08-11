@@ -13,9 +13,10 @@ const main = document.querySelector("main")
 async function getRecipes() {
     
     return await fetch('../Data/recipes.json')
-        .then(res => res.json())
-        .then(res => res.recipes)
-        .catch(err => console.log('an error occurs', err))
+        //.then(res => console.log(res))
+       //.then(res => res.json())
+       //.then(res => res.recipes)
+       //.catch(err => console.log('an error occurs', err))
 }
 
 function displayCards(recipesList) {
