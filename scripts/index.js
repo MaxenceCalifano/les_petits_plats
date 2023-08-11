@@ -24,7 +24,7 @@ const main = document.querySelector("main")
 
 async function getRecipes() {
  const myHeaders = new Headers();
-    myHeaders.append("Access-Control-Allow-Origin", "https://github.com/MaxenceCalifano/les_petits_plats/Data/recipes.json");
+    myHeaders.append("Authorization", `Bearer: ${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}`);
 
     const myInit = {
     method: "GET",
